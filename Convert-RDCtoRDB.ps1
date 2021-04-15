@@ -1,5 +1,6 @@
-﻿<#
-  VERSION: 1.0.0
+<#
+    VERSION: 1.0
+    
     Usage: .\Convert-RDCtoRDB "rdcman.rdg"
 
     This script will take as input a RDG (Remote Desktop Connection Manager)
@@ -12,7 +13,6 @@ $file = $args[0]
 $fileName = get-item $file | Select Name -ExpandProperty Name
 $fileName = $fileName -replace ".rdg",""
 $outputName = ($fileName + ".rdb")
-
 
 try 
 {
@@ -57,7 +57,6 @@ foreach ($g in $content2.RDCMan.file.group)
     
     $groupListArray += New-Object -TypeName psobject -Property @{GroupName=$g.properties.name; GroupGuid=$guid; ServerList=$svrListArray}
 }
-
 
 # create Groups & Connection entries
 [string]$groupListOutput = ""
@@ -130,4 +129,3 @@ $output =
 $output = $output.Replace("##Groups##", $groupListOutput)
 $output = $output.Replace("##Connections##", $connectListOutput)
 write-output -InputObject $output | Out-File ./$outputName -Force
-
